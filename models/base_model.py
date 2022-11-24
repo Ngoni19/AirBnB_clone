@@ -1,76 +1,64 @@
 #!/usr/bin/python3
-from datetime import datetime
+"""
+Module implements the BaseModel class
+"""
+
 from uuid import uuid4
-import models
-
-"""
-BaseModel Module
-All classes will inherit from this parent
-"""
+from datetime import datetime
 
 
-class BaseModel():
-    """AirBnB base class
-    Methods:
-        __init__(self, *var, **vars)
-        __str__(self)
-        __repr__(self)
-        __save(self)
-        to_dict(self)
+class BaseModel:
+    """
+    A class to be inherited with common attr/methods for other classes
     """
 
-    def __int__(self, *var, **vars):
+    def __init__(self, *var, **vars):
         """
-        Initialize attr: dates created/updated and uuid
+        Initialize BaseModel class
+        """
 
-        """
-        if vars:
-            for k, i in vars.items():
-                if "created_at" == k:
-                    self.created_at = datetime.strptime(vars["created_at"],
-                                                        "%Y-%m-%dT%H:%M:%S.%f")
-                elif "updated_at" == k:
-                    self.updated_at = datetime.strptime(vars["updated_at"],
-                                                        "%Y-%m-%dT%H:%M:%S.%f")
-                elif "__class__" == k:
-                    pass
-                else:
-                    setattr(self, k, i)
-        else:
+        from models import storage
+        if not vars:
             self.id = str(uuid4())
-            self.created_at = datetime.now()
-            self.updated_at = datetime.now()
-            models.storage.new(self)
+            self.created_at = self.updated_at = datetime.now()
+            storage.new(self)
+        else:
+            for key, val in vars.items():
+                if key != '__class__':
+                    if key in ('created_at', 'updated_at'):
+                        setattr(self, key, datetime.fromisoformat(val))
+                    else:
+                        setattr(self, key, val)
 
     def __str__(self):
         """
-        Returns-> info about model as strings
+        Returns -> string representation of BaseModel object.
+        In this format-> [<class name>] (<self.id>) <self.__dict__>
         """
-        return ('[{}] ({}) {}'.
-                format(self.__class__.__name__, self.id, self.__dict__))
-
-    def __repr__(self):
-        """
-        returns-> representation as strings
-        """
-        return (self.__str__())
+        return "[{}] ({}) {}".format(type(self).__name__, self.id,
+                                     self.__dict__)
 
     def save(self):
         """
-        Save to serialized file after instance update time
+        'self.updated_at' updated with the current datetime
         """
+        from models import storage
         self.updated_at = datetime.now()
-        models.storage.save()
+        storage.save()
 
     def to_dict(self):
         """
-        Return-> dictionary with str formats of times;add class info to dic1
+        returns -> a dict containing all keys & values of __dict__
+        of the instance:
+
+        > instance attributes set will be returned exclusively
+        > a key __class__ is added with the class name of the obj
+        > created_at & updated_at converted to string obj in ISO obj
         """
-        dic1 = {}
-        dic1["__class__"] = self.__class__.__name__
-        for j, i in self.__dict__.items():
-            if isinstance(i, (datetime, )):
-                dic1[j] = i.isoformat()
-            else:
-                dic1[j] = i
-        return dic1
+        dict01 = self.__dict__.copy()
+        dict01["__class__"] = self.__class__.__name__
+        for k, v in self.__dict__.items():
+            if k in ("created_at", "updated_at"):
+                v = self.__dict__[k].isoformat()
+                dict01[k] = v
+        return dict01
