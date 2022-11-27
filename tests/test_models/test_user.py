@@ -9,13 +9,13 @@ from models.user import User
 class TestUser(unittest.TestCase):
     """User class test cases"""
 
-        def test_user_if_subclass_of_basemodel(self):
+    def test_user_if_subclass_of_basemodel(self):
         u_name01 = User()
         self.assertTrue(issubclass(type(u_name01), BaseModel))
-        
-        def test_attr_are_class_attr(self):
+
+    def test_attr_are_class_attr(self):
         u_name01 = User()
-        # test if it is a class attribute
+        # test if attribute are class atrributes
         self.assertTrue(hasattr(User, "first_name")
                         and hasattr(User, "last_name"))
 
@@ -26,4 +26,3 @@ class TestUser(unittest.TestCase):
         self.assertIs(type(u_name01.last_name), str)
         self.assertTrue(u_name01.first_name == "")
         self.assertTrue(u_name01.last_name == "")
-
