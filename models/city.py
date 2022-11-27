@@ -7,4 +7,3 @@ class City(BaseModel):
     """Implementation of the City class"""
     state_id = ""
     name = ""
-
