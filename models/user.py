@@ -11,7 +11,7 @@ class User(BaseModel):
     Args:
         email (str): user email
         password (str): user password
-        first_name (str): user first name 
+        first_name (str): user first name
         last_name (str): user last name
     """
     email = ""

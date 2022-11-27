@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-Module -> FileStorage class model
+Contains FileStorage class model
 
 
 """
