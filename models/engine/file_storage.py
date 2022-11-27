@@ -18,9 +18,11 @@ from models.review import Review
 classes = {"Amenity": Amenity, "BaseModel": BaseModel, "City": City,
            "Place": Place, "Review": Review, "State": State, "User": User}
 
+
 class FileStorage:
     """
-    Class FileStorage Serializes\deserializes JSON file to instances
+    Class FileStorage Serializes
+    & deserializes JSON file to instances
     """
 
     __file_path = "file.json"
@@ -58,5 +60,5 @@ class FileStorage:
                 jo = json.load(F)
             for key in jo:
                 self.__objects[key] = classes[jo[key]["__class__"]](**jo[key])
-        except:
+        except Exception as ex:
             pass
