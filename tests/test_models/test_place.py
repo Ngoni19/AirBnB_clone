@@ -16,6 +16,7 @@ from models.base_model import BaseModel
 class TestPlace(unittest.TestCase):
 
     """Test Cases for the Place class."""
+    
 
     def setUp(self):
         """Sets up test methods."""

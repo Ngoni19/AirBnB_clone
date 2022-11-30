@@ -39,6 +39,7 @@ class TestAmenity(unittest.TestCase):
         self.assertEqual(str(type(b)), "<class 'models.amenity.Amenity'>")
         self.assertIsInstance(b, Amenity)
         self.assertTrue(issubclass(type(b), BaseModel))
+        
 
     def test_8_attributes(self):
         """Tests the attributes of Amenity class."""
