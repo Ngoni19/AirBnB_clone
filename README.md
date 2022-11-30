@@ -1,4 +1,4 @@
-![AirBnB](Asserts/hbnb_logo.png)
+![AirBnB](uploaded_pic/hbnb_logo.png)
 ### Airbnb Clone
 
 #### Description
@@ -9,12 +9,12 @@
 #### How to Use Command Interpreter
 ---
 | Commands | How to use          | Function
-|--------- |---------------------|------------------------------
-|`help`    |  `help`             | shows all commands available                  
+|--------- |---------------------|--------------------------------------
+|`help`    |  `help`             | shows all commands options available
 | `show`   |  `User.show('1278')`| retrieve an object from file
 
 #### Usage
-The Commandline Interpreter can be started by executing the command `./console.py`. The `console` can `create`, `destroy`, and `update` objects. Type `help` within the console to get a list of command options and its function.
+Commandline Interpreter: execute the command `./console.py`. The console can `create`, `destroy`, and `update` objects. Type `help` get a list of command options.
 
 ---
 ### The Environment
